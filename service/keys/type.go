@@ -1,12 +1,13 @@
 package keys
 
 import (
-	"daichaogo/config"
+	"github.com/RXDA/RedisAPI/config"
 	"github.com/gin-gonic/gin"
 	"github.com/gomodule/redigo/redis"
 	"log"
 )
 
+//get key type
 func Type(c *gin.Context) {
 	key := c.Query("key")
 	conn := config.Conn.RedisPool.Get()
@@ -30,3 +31,6 @@ func Type(c *gin.Context) {
 		Type string
 	}{key, keyType})
 }
+
+
+

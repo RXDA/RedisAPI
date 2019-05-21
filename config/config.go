@@ -30,17 +30,20 @@ func newRedisPool(addr string) *redis.Pool {
 
 var Conn Connection
 
-func Init(env string) {
-	config := viper.New()
-	config.SetConfigType("yaml")
-	config.SetConfigName(env)
-	config.AddConfigPath("./config/")
-	config.AddConfigPath("config")
 
-	err := config.ReadInConfig()
-	if err != nil {
-		log.Fatal(err.Error())
-	}
-	//redis pool
-	Conn.RedisPool = newRedisPool(config.GetString("redis.url"))
+func init(){
+	func (env string) {
+		config := viper.New()
+		config.SetConfigType("yaml")
+		config.SetConfigName(env)
+		config.AddConfigPath("./config/")
+		config.AddConfigPath("config")
+
+		err := config.ReadInConfig()
+		if err != nil {
+			log.Fatal(err.Error())
+		}
+		//redis pool
+		Conn.RedisPool = newRedisPool(config.GetString("redis.url"))
+	}("develop")
 }
